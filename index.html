@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Express</title>
+  
+</head>
+<body>
+  <h1>User list</h1>
+  <ul id="user_list"></ul>
+  <form action="/add-user" method="post">
+    <input type="text" name="username">
+    <button type="submit">add user</button>
+  </form>
+
+  <script>
+    const userList = document.getElementById('user_list');
+
+    const getFetch = async (url) => {
+      const res = await fetch(url);
+      const data = await res.json();
+      usersListRender(data.users);
+      return data;
+    }
+
+    // const postFetch = async (url) => {
+    //   const res = await fetch(url, {
+    //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    //     mode: 'cors', // no-cors, *cors, same-origin
+    //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    //     credentials: 'same-origin', // include, *same-origin, omit
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //       // 'Content-Type': 'application/x-www-form-urlencoded',
+    //     },
+    //     redirect: 'follow', // manual, *follow, error
+    //     referrerPolicy: 'no-referrer', // no-referrer, *client
+    //     body: JSON.stringify(data) // body data type must match "Content-Type" header
+    //   });
+    //   const data = await res.json();
+    //   usersListRender(data.users);
+    //   return data;
+    // }
+
+    const usersListRender = (users) => {
+      users.forEach(user => {
+        const userElement = document.createElement('li');
+        userElement.innerText = user;
+        
+        userList.appendChild(userElement);
+      })
+    }
+
+    getFetch('/users');
+
+    // console.log('const', userList);
+  </script>
+</body>
+</html>
