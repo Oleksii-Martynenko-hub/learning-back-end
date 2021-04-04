@@ -4,7 +4,7 @@ const express = require('express');
 const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
 
-const body = require('./body.json');
+const body = require('../body.json');
 
 const app = express();
 
@@ -23,7 +23,7 @@ router.get('/users', (req, res, next) => res.send(body));
 
 app.use(bodyParser.json());
 app.use('/.netlify/functions/server', router);
-app.use('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 module.exports = app;
 module.exports.handler = serverless(app);
