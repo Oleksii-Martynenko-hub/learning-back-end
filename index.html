@@ -8,61 +8,57 @@
   
 </head>
 <body>
-  <!-- <object
-    type="text/html"
-    data="/.netlify/functions/server"
-    style="width:100%;height:100%;"
-  > -->
-    <h1>User list</h1>
-    <ul id="user_list"></ul>
-    <form action="/.netlify/functions/server/add-user" method="post">
-      <input type="text" name="username">
-      <button type="submit">add user</button>
-    </form>
+  <h1>User list</h1>
+  <ul id="user_list"></ul>
+  <form>
+    <input id="input_user" type="text" name="username">
+    <button id="add_user" type="button">add user</button>
+  </form>
 
-    <script>
-      const API = '/.netlify/functions/server';
-      const userList = document.getElementById('user_list');
+  <script>
+    const API = '/.netlify/functions/server';
 
-      const getFetch = async (url) => {
-        const res = await fetch(API + url);
-        const data = await res.json();
-        usersListRender(data.users);
-        return data;
-      }
+    const userList = document.getElementById('user_list');
+    const input = document.getElementById('input_user');
+    const btn = document.getElementById('add_user');
 
-      // const postFetch = async (url) => {
-      //   const res = await fetch(url, {
-      //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      //     mode: 'cors', // no-cors, *cors, same-origin
-      //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      //     credentials: 'same-origin', // include, *same-origin, omit
-      //     headers: {
-      //       'Content-Type': 'application/json'
-      //       // 'Content-Type': 'application/x-www-form-urlencoded',
-      //     },
-      //     redirect: 'follow', // manual, *follow, error
-      //     referrerPolicy: 'no-referrer', // no-referrer, *client
-      //     body: JSON.stringify(data) // body data type must match "Content-Type" header
-      //   });
-      //   const data = await res.json();
-      //   usersListRender(data.users);
-      //   return data;
-      // }
+    const getFetch = async (url) => {
+      const res = await fetch(API + url);
+      const data = await res.json();
+      usersListRender(data.users);
+      return data;
+    }
 
-      const usersListRender = (users) => {
-        users.forEach(user => {
-          const userElement = document.createElement('li');
-          userElement.innerText = user;
-          
-          userList.appendChild(userElement);
-        })
-      }
+    const postFetch = async (url, data) => {
+      const res = await fetch(API + url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+    }
 
-      getFetch('/users');
+    const usersListRender = (users) => {
+      users.forEach(user => {
+        const userElement = document.createElement('li');
+        userElement.innerText = user;
+        
+        userList.appendChild(userElement);
+      })
+    }
 
-      // console.log('const', userList);
-    </script>
-  <!-- </object> -->
+    let inputValue = '';
+
+    input.addEventListener('input', (e) => {
+      inputValue = e.target.value;
+      console.log(inputValue);
+    })
+
+    btn.addEventListener('click', () => {
+      postFetch("/add-user", {username: inputValue})
+      location.reload();
+    })
+
+    getFetch('/users');
+  </script>
 </body>
 </html>
