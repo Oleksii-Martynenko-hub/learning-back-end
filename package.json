@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server-local.js",
-    "build": "netlify-lambda build express",
+    "build": "netlify-lambda build server",
     "server": "node server-local.js"
   },
   "author": "Oleksii Martynenko",
