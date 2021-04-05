@@ -5,9 +5,8 @@
   "main": "functions/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server-local.js",
-    "build": "netlify-lambda build server",
-    "server": "node server-local.js"
+    "start": "nodemon dev-app.js",
+    "build": "netlify-lambda build server"
   },
   "author": "Oleksii Martynenko",
   "license": "ISC",

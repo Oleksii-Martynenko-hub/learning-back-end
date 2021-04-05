@@ -4,7 +4,7 @@ const express = require('express');
 const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
 
-const body = require('../body.json');
+const body = require('./body.json');
 
 const app = express();
 
