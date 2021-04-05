@@ -22,7 +22,7 @@ router.post('/add-user', (req, res, next) => {
 router.get('/users', (req, res, next) => res.send(body));
 
 app.use(bodyParser.json());
-app.use('/.netlify/api/index', router);
+app.use('/.netlify/functions/index', router);
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 module.exports = app;
