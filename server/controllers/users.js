@@ -3,6 +3,7 @@ const User = require('../models/users');
 exports.postAddUser = (req, res, next) => {
   const user = new User(req.body);
   const newUser = user.save();
+  res.set('Content-Type', 'application/json')
   res.status(201).json(newUser);
 };
 
