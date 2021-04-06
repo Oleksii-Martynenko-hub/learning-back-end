@@ -21,12 +21,12 @@ module.exports = class User {
       email: this.email,
       password: this.password
     }
-    usersData.push(newUser)
+    // usersData.push(newUser)
 
-    fs.writeFileSync(
-      path.join(rootDir, 'server', 'data', 'users.json'),
-      JSON.stringify(usersData, null, 2)
-    );
+    // fs.writeFileSync(
+    //   path.join(rootDir, 'server', 'data', 'users.json'),
+    //   JSON.stringify(usersData, null, 2)
+    // );
 
     return newUser;
   }
