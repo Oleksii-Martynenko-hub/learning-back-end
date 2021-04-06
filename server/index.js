@@ -1,28 +1,15 @@
-const path = require('path');
-const fs = require('fs');
 const express = require('express');
 const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
 
-const body = require('./data/body.json');
+const usersRoutes = require('./routes/users');
 
 const app = express();
 
-const router = express.Router();
-
-// app.use(bodyParser.urlencoded({extended: false}));
-
-router.post('/add-user', (req, res, next) => {
-  body.users.push(req.body.username);
-  fs.writeFileSync(path.join(__dirname, 'data', 'body.json'), JSON.stringify(body, null, 2));
-  res.send(req.body);
-});
-
-router.get('/users', (req, res, next) => res.send(body));
-
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use('/.netlify/functions/index', router);
-// app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
+app.use('/.netlify/functions/index', usersRoutes);
+app.use((req, res, next) => res.status(404).send(['page not found']));
 
 module.exports = app;
 module.exports.handler = serverless(app);
