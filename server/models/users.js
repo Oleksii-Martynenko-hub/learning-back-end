@@ -21,7 +21,7 @@ module.exports = class User {
       email: this.email,
       password: this.password
     }
-    // usersData.push(newUser)
+    usersData.push(newUser)
 
     // fs.writeFileSync(
     //   path.join(rootDir, 'server', 'data', 'users.json'),
