@@ -1,3 +1,7 @@
 const app = require('./server');
 
-app.listen(4000);
+const mongoConnect = require('./server/utils/db').mongoConnect;
+
+mongoConnect(() => {
+  app.listen(4000);
+});
