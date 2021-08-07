@@ -15,10 +15,7 @@ exports.userById = (req, res, next) => {
 
 exports.editUser = (req, res, next) => {
   const [stringId, tokenReq] = req.body.accessToken.split('.');
-  console.log(stringId, tokenReq);
-  if (token !== tokenReq) {
-    return res.send('token invalid')
-  }
+  if (token !== tokenReq) return res.send('token invalid')
   User.findByIdAndUpdate(stringId, req.query).then((user) => {
     User.findById(user._id).then((userById) => res.send(userById));
   });
