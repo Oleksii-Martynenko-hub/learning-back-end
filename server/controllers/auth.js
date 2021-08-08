@@ -1,6 +1,12 @@
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+const sendGrid = require('nodemailer-sendgrid-transport');
 
 const User = require('../models/users');
+
+const transport = nodemailer.createTransport(sendGrid({
+  auth: { api_key: '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'}
+}))
 
 const token = 'kljhLKJDhflkh3983YFyhedh23iohnfs8D';
 
@@ -19,7 +25,16 @@ exports.signup = (req, res, next) => {
           });
           newUser.save();
           res.send('Successfully signup');
-        });
+        })
+        .then(res => {
+          transport.sendMail({
+            to: email,
+            from: 'alex47alex50@gmail.com',
+            subject: 'Successfully signup',
+            html: `<h1 style="color: #00ff00;" >Successfully signup</h1><p style="color: #0000ff;">Hi, ${name}! Congratulation, you have account of Notes&Tasks!!!</p>`
+          })
+        })
+        .catch(err => console.log(err));
     });
 };
 
